@@ -42,4 +42,25 @@ module.exports = class Dictionary {
   values() {
     return this.keyValues().map(vp => vp.value);
   }
+  forEach(callbackFn) {
+    const valuePairs = this.keyValues();
+    for (let i = 0; i < valuePairs.length; i++) {
+      const result = callbackFn(valuePairs[i].key, valuePairs[i].value);
+      if (result === false) {
+        break;
+      }
+    }
+  }
 
+  size() {
+    return this.keyValues().length;
+  }
+
+  isEmpty() {
+    return this.size() === 0;
+  }
+
+  clear(){
+    this.table = {};
+  }
+};

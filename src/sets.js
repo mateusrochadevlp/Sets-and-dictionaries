@@ -26,3 +26,44 @@ remove(Element) {
   values(){
     return Object.values(this.itens);
   }
+   union(otherSet) {
+    const unionSet = new Custom();
+    let values = this.values();
+    for (let i = 0; i < values.length; i++){
+      unionSet.add(values[i]);
+    }
+    values = otherSet.values();
+    for (let i = 0; i < values.length; i++) {
+      unionSet.add(values[i]);
+    }
+    return unionSet;
+  }
+    intersection(otherSet) {
+      const intersectionSet = new Custom();
+      const values = this.values();
+      const otherSetValues = otherSet.values();
+
+      let bigSet = values;
+      let smallSet = otherSetValues;
+      if (otherSetValues.length > values.length) {
+         bigSet = otherSetValues;
+         smallSet = values;
+      }
+
+      smallSet.forEach(value => {
+        if (bigSet.includes(value)) {
+          intersectionSet.add(value)
+        }
+      });
+      return intersectionSet;
+    }
+    diference(otherSet) {
+      const diferenceSet = new Custom();
+      this.values().forEach(value => {
+        if (!otherSet.has(value)) {
+          diferenceSet.add(value)
+        }
+      });
+      return diferenceSet();
+    }
+};
